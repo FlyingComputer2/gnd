@@ -19,7 +19,7 @@ Same upstream ids on both ends; buses swap at the peer.
 |----|--------|--------------------|------------------------|-------------|
 | 0 | WireGuard | `a1` / `b2`, connect `127.0.0.1:51820` | `b2` / `a1`, bind `127.0.0.1:22180` | RS k=1 n=3 |
 | 1 | Video RTP + reverse telemetry | `d4` / `c3`, connect `127.0.0.1:21082` | `c3` / `d4`, bind `127.0.0.1:22081` | NONE |
-| 2 | Radio link-test probe (LC loss / bench) | `e5` / `f6`, connect `127.0.0.1:21100` | `e5` / `f6`, bind `127.0.0.1:22100` | NONE |
+| 2 | Radio link-test probe (LC loss / bench) | `e5` / `f6`, connect `127.0.0.1:21100` | `f6` / `e5`, bind `127.0.0.1:22100` | NONE |
 
 ## Radio link test (upstream 2)
 
