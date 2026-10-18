@@ -58,7 +58,7 @@ restart `winject-manager`, then:
 | Receiver console | `192.168.128.1:5091` | vstreamer metrics |
 | Sender console (rover) | `192.168.128.2:5090` | rover-side |
 
-Air: channel **13**, **OFDM_54M**, power **20**, domain **0xB00B**, `max_rate_kbps = 80000`.
+Air: channel **1** (on the bench the C6 rover loses ~7% on channels 5–13 and ~5% the other way on 3–4; channel 1 is ~1% both ways), **OFDM_54M**, power **20**, domain **0xB00B**, `max_rate_kbps = 80000`.
 `winject-manager/config.cfg` currently carries the bench override (**OFDM_36M**, power **2**: at
 short range 20 dBm overloads the receiver); restore 54M / 20 in the field.
 
