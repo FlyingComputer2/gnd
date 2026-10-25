@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # Wait for the radio m-plane, then exec winject-manager.
+# RADIO=p4: the radio is the ESP32-P4 + C6 on Ethernet (config.p4radio.cfg); nothing to wait for.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -19,5 +20,8 @@ wait_udp_bind() {
     return 1
 }
 
+if [[ "${RADIO:-}" == p4 ]]; then
+    exec "$BIN" "${ROOT}/config.p4radio.cfg"
+fi
 wait_udp_bind
 exec "$BIN" "${ROOT}/config.cfg"

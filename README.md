@@ -98,6 +98,25 @@ sudo ./setup.sh
 Requires `/etc/wireguard/winject.conf` (see `wireguard/winject.conf.example`). Cold boot
 brings up WireGuard, radio, and manager; video does not start until the desktop receiver runs.
 
+## ESP32-P4 + C6 radio
+
+Instead of the RTL8812AU, the radio can be a Guition JC-ESP32P4-M3-DEV running
+[rover-ground-esp32p4](https://github.com/FlyingComputer2/rover-ground-esp32p4): the P4 exposes
+its ESP32-C6 as a winject radio on Ethernet (m-plane UDP 22, d-plane UDP 9000). winject-l3 and
+the receiver stay here.
+
+```bash
+sudo RADIO=p4 scripts/start.sh --replace
+```
+
+`RADIO=p4` skips `radio/start.sh` and runs winject-manager with
+`winject-manager/config.p4radio.cfg`: the P4's address (`192.168.253.25`, from DHCP, so
+reserve it or edit the config), `radio_fcs = signal` and 15 dBm (the C6's TX plateau; the
+rover's C6 hears nothing at 2 dBm). The systemd units still assume the RTL8812AU.
+
+Bench result on channel 1 at OFDM_36M against the rover's P4 + C6: ~31 fps rendered, 0.6% UDP
+loss before FEC and none after, RSSI −42 dBm, the same as with the RTL8812AU.
+
 ## Video
 
 From a logged-in desktop session (SDL window):

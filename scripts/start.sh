@@ -6,7 +6,8 @@
 #   sudo scripts/start.sh --replace   # stop those first
 #
 # Env: RECEIVER_DISPLAY=kmsdrm|sdl (default kmsdrm, HDMI via tty1), LOG_DIR (default
-# /tmp/rover-ground). WireGuard (wg-quick@winject) is started if it is not up.
+# /tmp/rover-ground), RADIO=p4 (no local radio: winject-manager uses the ESP32-P4 + C6 radio on
+# Ethernet, winject-manager/config.p4radio.cfg). WireGuard (wg-quick@winject) is started if it is not up.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
@@ -25,7 +26,7 @@ case "${1:-}" in
 esac
 
 if [[ "$(id -u)" -ne 0 ]]; then
-    exec sudo --preserve-env=RECEIVER_DISPLAY,LOG_DIR "$0" "$@"
+    exec sudo --preserve-env=RECEIVER_DISPLAY,LOG_DIR,RADIO "$0" "$@"
 fi
 
 existing_pids() {
@@ -110,8 +111,10 @@ cleanup() {
 }
 trap cleanup INT TERM EXIT
 
-launch radio "${ROOT}/radio/start.sh"
-launch l3 "${ROOT}/winject-manager/start.sh"
+if [[ "${RADIO:-}" != p4 ]]; then
+    launch radio "${ROOT}/radio/start.sh"
+fi
+launch l3 env RADIO="${RADIO:-}" "${ROOT}/winject-manager/start.sh"
 
 if [[ "$DISPLAY_MODE" == "kmsdrm" ]] && systemctl is-active --quiet getty@tty1.service; then
     # The receiver takes tty1 for KD_GRAPHICS; the login prompt would draw over the video.
