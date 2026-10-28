@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Install rover-ground units and configs on this GS host (run as root).
+# Install gnd units and configs on this GS host (run as root).
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

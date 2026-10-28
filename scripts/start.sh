@@ -6,16 +6,16 @@
 #   sudo scripts/start.sh --replace   # stop those first
 #
 # Env: RECEIVER_DISPLAY=kmsdrm|sdl (default kmsdrm, HDMI via tty1), LOG_DIR (default
-# /tmp/rover-ground). WireGuard (wg-quick@winject) is started if it is not up.
+# /tmp/gnd). WireGuard (wg-quick@winject) is started if it is not up.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-LOG_DIR="${LOG_DIR:-/tmp/rover-ground}"
+LOG_DIR="${LOG_DIR:-/tmp/gnd}"
 DISPLAY_MODE="${RECEIVER_DISPLAY:-kmsdrm}"
 UNITS=(gs-video-receiver.service winject-manager.service winject-radio-realtek.service)
 # Anchored on the command itself (binary path or `bash <script>`), so shells, editors or ssh
 # sessions that merely mention these names are not matched.
-PATTERN='^(\S*/)?(winject-radio-realtek|winject-manager|sdl_stream_receiver)( |$)|^(\S*/)?bash \S*rover-ground/(radio|winject-manager|receiver)/start\.sh'
+PATTERN='^(\S*/)?(winject-radio-realtek|winject-manager|sdl_stream_receiver)( |$)|^(\S*/)?bash \S*gnd/(radio|winject-manager|receiver)/start\.sh'
 
 replace=0
 case "${1:-}" in

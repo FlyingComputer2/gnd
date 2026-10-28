@@ -1,4 +1,4 @@
-# rover-ground
+# gnd
 
 Ground station on the Orange Pi 5 (RK3588): **winject-l3** manager and **winject-radio-realtek**
 on a local RTL8812AU, WireGuard to the rover, and **vstreamer** `sdl_stream_receiver` for
@@ -103,7 +103,7 @@ brings up WireGuard, radio, and manager; video does not start until the desktop 
 From a logged-in desktop session (SDL window):
 
 ```bash
-/home/ubuntu/development/rover-ground/receiver/start.sh
+/home/ubuntu/development/gnd/receiver/start.sh
 ```
 
 Or log in as `ubuntu` for XDG autostart (`autostart/gs-video-receiver.desktop`).
