@@ -19,7 +19,7 @@ Same upstream ids on both ends; buses swap at the peer.
 |----|--------|--------------------|------------------------|-------------|
 | 0 | WireGuard | `a1` / `b2`, connect `127.0.0.1:51820` | `b2` / `a1`, bind `127.0.0.1:22180` | RS k=1 n=3 |
 | 1 | Video RTP + reverse telemetry | `d4` / `c3`, connect `127.0.0.1:21082` | `c3` / `d4`, bind `127.0.0.1:22081` | NONE |
-| 2 | Radio link-test probe (LC loss / bench) | `e5` / `f6`, connect `127.0.0.1:21100` | `e5` / `f6`, bind `127.0.0.1:22100` | NONE |
+| 2 | Radio link-test probe (LC loss / bench) | `e5` / `f6`, connect `127.0.0.1:21100` | `f6` / `e5`, bind `127.0.0.1:22100` | NONE |
 
 ## Radio link test (upstream 2)
 
@@ -58,7 +58,7 @@ restart `winject-manager`, then:
 | Receiver console | `192.168.128.1:5091` | vstreamer metrics |
 | Sender console (rover) | `192.168.128.2:5090` | rover-side |
 
-Air: channel **13**, **OFDM_54M**, power **20**, domain **0xB00B**, `max_rate_kbps = 80000`.
+Air: channel **1** (on the bench the C6 rover loses ~7% on channels 5–13 and ~5% the other way on 3–4; channel 1 is ~1% both ways), **OFDM_54M**, power **20**, domain **0xB00B**, `max_rate_kbps = 80000`.
 `winject-manager/config.cfg` currently carries the bench override (**OFDM_36M**, power **2**: at
 short range 20 dBm overloads the receiver); restore 54M / 20 in the field.
 
